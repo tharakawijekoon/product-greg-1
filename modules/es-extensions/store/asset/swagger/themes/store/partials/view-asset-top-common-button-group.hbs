@@ -1,0 +1,53 @@
+<!-- Copyright (c) 2015, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+*
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+* http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+-->
+
+<div class="container pull-right">
+    <div class="col-sm-10 pull-right">
+        <form class="form-inline pull-right" action="#" method="get">
+            <div class="input-group col-sm-12 pull-right btn-group" role="group" aria-label="...">
+
+                {{#if rxt.meta.isDependencyShown}}
+                {{> view-asset-top-common-addons-container }}
+                {{/if}}
+                {{#if assetVersions }}
+                {{#if rxt.meta.isDiffViewShown }}
+                {{> view-asset-diff-view-container .. }}
+                {{/if}}
+                {{/if}}
+
+                {{#if assets.downloadMetaData.enabled}}
+
+                <a style="display:none" id='download-link'>{{assets.downloadMetaData.url}}</a>
+                <a class="btn btn-default copy-button input-group-addon" id='copy-button'
+                    data-clipboard-text="{{assets.downloadMetaData.url}}"><i title='{{t "Copy URL"}}'
+                        class="fw fw-copy"></i> {{t "Copy URL"}}
+                </a>
+                <a class='btn btn-default input-group-addon' target='_blank' href="{{assets.downloadMetaData.url}}"><i
+                        class="fw fw-download"></i> {{t "Download"}}</a>
+                {{else}}
+                {{#if downloadMetaData.enabled}}
+                <a style="display:none" id='download-link'>{{downloadMetaData.url}}</a>
+                <a class="btn btn-default copy-button input-group-addon" id='copy-button'
+                    data-clipboard-text="{{downloadMetaData.url}}"><i title='{{t "Copy URL"}}' class="fw fw-copy"></i>
+                    {{t "Copy URL"}}
+                </a>
+                <a class='btn btn-default input-group-addon' target='_blank' href="{{downloadMetaData.url}}">
+                    <i class="fw fw-download"></i> {{t "Download"}}</a>
+                {{/if}}
+                {{/if}}
+            </div>
+        </form>
+    </div>
+</div>
