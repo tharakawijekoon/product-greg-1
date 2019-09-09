@@ -13,6 +13,7 @@
 * limitations under the License. 
 -->
 {{#with assets}}
+
 <div class='content-div'>
     <div class="tab-content asset-tab-content">
         <div id="view" class="asset-view-container">
@@ -22,7 +23,8 @@
                         <div class="widget-content">
 
                             <h2 class="field-title">
-                                <a class="collapsing-h2 collapsed" data-toggle="collapse" area-expanded="true" href="#collpaseoverview">
+                                <a class="collapsing-h2 collapsed" data-toggle="collapse" area-expanded="true"
+                                    href="#collpaseoverview">
                                     <i class="cu-btn-exp-col btn-collapsed">{{t "Overview"}}</i>
                                 </a>
                             </h2>
@@ -46,50 +48,158 @@
 
                             {{#if isDependentsPresent}}
                             <h2 class="field-title">
-                                <a class="collapsing-h2 collapsed" data-toggle="collapse" area-expanded="true" href="#collapsedependencies">
+                                <a class="collapsing-h2 collapsed" data-toggle="collapse" area-expanded="true"
+                                    href="#collapsedependencies">
                                     <i class="cu-btn-exp-col btn-collapsed"> {{t "Associations"}} </i>
                                 </a>
                             </h2>
 
                             <div id="collapsedependencies" class="collapse">
-                            <div class="collapse in" area-expanded="true" style="">
-                                <div class="row padding-bottom-lg">
-                                    <div class="col-sm-2 custom-form-label text-right">{{t "Associated REST Services"}} :</div>
-                                    <table>
-                                        {{#each dependencies}}
+                                <div class="collapse in" area-expanded="true" style="">
+                                    <div class="row padding-bottom-lg">
+                                        <div class="col-sm-2 custom-form-label text-right">
+                                            {{t "Associated REST Services"}} :</div>
+                                        <table>
+                                            {{#each dependencies}}
                                             <tr>
                                                 <td>
                                                     <div class="col-sm-20">
                                                         <a href="../../../assets/{{this
-                                                        .associationType}}/details/{{this.associationUUID}}">{{this.associationName}} {{#if this.associationVersion}} v{{this
+                                                        .associationType}}/details/{{this.associationUUID}}">{{this.associationName}}
+                                                            {{#if this.associationVersion}} v{{this
                                                         .associationVersion}} {{/if}}</a>
                                                     </div>
                                                     <br>
                                                 </td>
                                             </tr>
-                                        {{/each}}
-                                    </table>
+                                            {{/each}}
+                                        </table>
+                                    </div>
                                 </div>
-                            </div>
                             </div>
                             {{/if}}
 
+                            <h2 class="field-title">
+                                <a class="collapsing-h2 collapsed" data-toggle="collapse" area-expanded="true"
+                                    href="#swaggerUi">
+                                    <i class="cu-btn-exp-col btn-collapsed"> {{t "API Console"}} </i>
+                                </a>
+                            </h2>
+
+                            <div id="swaggerUi" class="collapse">
+
+                                <div class="collapse in" area-expanded="true" style="">
+                                    <link
+                                        href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Source+Code+Pro:300,600|Titillium+Web:400,600,700"
+                                        rel="stylesheet">
+                                    <link rel="stylesheet" type="text/css"
+                                        href="/store/extensions/assets/swagger/themes/store/css/swagger-ui.css">
+                                    <link rel="icon" type="image/png"
+                                        href="/store/extensions/assets/swagger/themes/store/imgs/favicon-32x32.png"
+                                        sizes="32x32" />
+                                    <link rel="icon" type="image/png"
+                                        href="/store/extensions/assets/swagger/themes/store/imgs/favicon-16x16.png"
+                                        sizes="16x16" />
+
+                                    <style>
+                                        html {
+                                            box-sizing: border-box;
+                                            overflow: -moz-scrollbars-vertical;
+                                            overflow-y: scroll;
+                                        }
+
+                                        *,
+                                        *:before,
+                                        *:after {
+                                            box-sizing: inherit;
+                                        }
+
+                                        body {
+                                            margin: 0;
+                                            background: #fafafa;
+                                        }
+                                    </style>
+
+                                    <div id="swagger-ui">
+
+
+                                        <script
+                                            src="/publisher/extensions/assets/swagger/themes/default/js/swagger-ui-bundle.js"> </script>
+                                        <script
+                                            src="/publisher/extensions/assets/swagger/themes/default/js/swagger-ui-bundle.js"> </script>
+                                        <script type="application/json" id="hello">
+                        {{../assets.content}}
+                </script>
+                                        <script>
+
+                                            function loadSwagger() {
+                                                debugger;
+                                                var rawContent = JSON.parse($("#hello").html().replace(/&quot;/g, '"'));
+                                                // Begin Swagger UI call region
+                                                const ui = SwaggerUIBundle({
+                                                    "dom_id": "#swagger-ui",
+                                                    deepLinking: true,
+                                                    presets: [
+                                                        SwaggerUIBundle.presets.apis,
+                                                    ],
+                                                    plugins: [
+
+                                                        function () {
+
+                                                            return {
+                                                                components: {
+                                                                    Models: function () {
+                                                                        return null;
+                                                                    },
+                                                                    schemes: function () {
+                                                                        return null;
+                                                                    },
+                                                                    authorizeBtn: function () {
+                                                                        return null;
+                                                                    },
+                                                                    info: function () {
+                                                                        return null;
+                                                                    },
+                                                                    Servers: function () {
+                                                                        return null;
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    ],
+                                                    spec: rawContent,
+                                                    layout: "BaseLayout"
+                                                });
+                                                // End Swagger UI call region
+                                                window.ui = ui
+                                            }
+                                            document.addEventListener("DOMContentLoaded", function (event) {
+                                                loadSwagger();
+                                            });
+                                        </script>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div id='swagger-viewer'>
                                 <h2 class="field-title">
-                                    <a class="collapsing-h2" data-toggle="collapse" area-expanded="true" href="#collapseContent">
+                                    <a class="collapsing-h2" data-toggle="collapse" area-expanded="true"
+                                        href="#collapseContent">
                                         <i class="cu-btn-exp-col btn-collapsed"> {{t "Content"}}</i>
                                     </a>
                                 </h2>
                                 <div id="collapseContent" class="collapse in">
-                                    <textarea id="swaggercontent" name="swaggercontent">{{content}}</textarea>
+                                    <div class="collapse in" area-expanded="true" style=""><textarea id="swaggercontent"
+                                            name="swaggercontent">{{content}}</textarea>
+                                    </div>
+
                                 </div>
                             </div>
-
                         </div>
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-{{/with}}
+    {{/with}}
